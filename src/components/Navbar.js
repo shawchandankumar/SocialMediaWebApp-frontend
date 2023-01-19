@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 
 class Navbar extends Component {
 
@@ -6,7 +7,9 @@ class Navbar extends Component {
         return (
             <nav className="nav">
                 <div className='left-nav'>
-                    <img src='' alt='logo'/>
+                    <Link to={`/`} >
+                        <img src='' alt='logo'/>
+                    </Link>
                 </div>
 
                 <div className="search-container">
@@ -36,9 +39,15 @@ class Navbar extends Component {
 
                     <div className="nav-links">
                         <ul>
-                            <li>Log in</li>
-                            <li>Log out</li>
-                            <li>Register</li>
+                            <li>
+                                <Link to={`/login`} >Log in</Link>
+                            </li>
+                            <li>
+                                <Link to={`/`} >Log out</Link>
+                            </li>
+                            <li>
+                                <Link to={`/signup`} >Sign up</Link>
+                            </li>
                         </ul>
                     </div>
                 </div>

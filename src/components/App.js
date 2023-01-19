@@ -4,10 +4,9 @@ import { BrowserRouter as Router, Link, Route, Routes } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import fetchPosts from "../actions/posts";
-import { PostsList, Navbar } from "./";
+import { Home, Navbar, Page404 } from "./";
 
 const Signup = () => <div>Signup</div>;
-const Home = () => <div>Home</div>;
 const Login = () => <div>Login</div>;
 
 class App extends React.Component {
@@ -16,30 +15,20 @@ class App extends React.Component {
   }
 
   render() {
+    const {posts} = this.props;
+
     return (
       <Router>
         <div>
           <Navbar />
-          {/* <PostsList posts={this.props.posts} /> */}
-
-          <ul>
-            <li>
-              <Link to={`/`}>Home</Link>
-            </li>
-            <li>
-              <Link to={`/login`}>Login</Link>
-            </li>
-            <li>
-              <Link to={`/signup`}>Signup</Link>
-            </li>
-          </ul>
 
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
+            <Route path="/" element={<Home posts={posts} />} />
+            <Route path="login" element={<Login />} />
+            <Route path="signup" element={<Signup />} />
+            <Route path="*" element={<Page404 />} />
           </Routes>
-          
+
         </div>
       </Router>
     );
