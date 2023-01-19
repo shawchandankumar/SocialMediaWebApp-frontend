@@ -1,11 +1,31 @@
+import React from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import fetchPosts from "../actions/posts";
+import { PostsList } from "./";
 
+class App extends React.Component {
+  componentDidMount() {
+    this.props.dispatch(fetchPosts());
+  }
 
-function App() {
-  return (
-    <div className="App">
-      App
-    </div>
-  );
+  render() {
+    return (
+      <div>
+        <PostsList posts={this.props.posts} />
+      </div>
+    );
+  }
 }
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    posts: state.posts,
+  };
+}
+
+App.propTypes = {
+  posts: PropTypes.array.isRequired,
+};
+
+export default connect(mapStateToProps)(App);
