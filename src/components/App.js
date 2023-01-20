@@ -4,10 +4,9 @@ import { BrowserRouter as Router, Link, Route, Routes } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import fetchPosts from "../actions/posts";
-import { Home, Navbar, Page404 } from "./";
+import { Home, Navbar, Page404, Login } from "./";
 
 const Signup = () => <div>Signup</div>;
-const Login = () => <div>Login</div>;
 
 class App extends React.Component {
   componentDidMount() {
