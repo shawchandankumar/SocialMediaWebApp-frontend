@@ -1,3 +1,5 @@
+import { LOGIN_FAILED, LOGIN_SUCCESS, LOGIN_START } from "../actions/actionType";
+
 const initialAuthState = {
     user: {},
     error: null, 
