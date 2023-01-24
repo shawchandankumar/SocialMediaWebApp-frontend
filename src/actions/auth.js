@@ -1,6 +1,13 @@
 import { APIUrls } from "../helpers/urls";
 import { getFormData } from "../helpers/utils";
-import { LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILED, AUTHENTICATE_USER, LOG_OUT } from "./actionType";
+import {
+  LOGIN_START,
+  LOGIN_SUCCESS,
+  LOGIN_FAILED,
+  AUTHENTICATE_USER,
+  LOG_OUT,
+  CLEAR_AUTH_ERROR_STATE,
+} from "./actionType";
 
 export function startLogin() {
   return {
@@ -11,20 +18,20 @@ export function startLogin() {
 export function loginSuccess(user) {
   return {
     type: LOGIN_SUCCESS,
-    user
+    user,
   };
 }
 
 export function loginFailed(error) {
   return {
     type: LOGIN_FAILED,
-    error
+    error,
   };
 }
 
 export function login(email, password) {
   return (dispatch) => {
-    dispatch(startLogin())
+    dispatch(startLogin());
     const url = APIUrls.login();
     fetch(url, {
       method: "post",
@@ -36,7 +43,7 @@ export function login(email, password) {
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
-          localStorage.setItem('token', data.data.token);
+          localStorage.setItem("token", data.data.token);
           dispatch(loginSuccess(data.data.user));
           return;
         }
@@ -44,7 +51,6 @@ export function login(email, password) {
       });
   };
 }
-
 
 export function signup(name, email, password, confirm_password) {
   return (dispatch) => {
@@ -61,7 +67,7 @@ export function signup(name, email, password, confirm_password) {
       .then((data) => {
         if (data.success) {
           // setting the token in the local storage as it gets wiped out after refresh
-          localStorage.setItem('token', data.data.token);
+          localStorage.setItem("token", data.data.token);
 
           dispatch(loginSuccess(data.data.user));
           return;
@@ -71,16 +77,21 @@ export function signup(name, email, password, confirm_password) {
   };
 }
 
-
 export function authenticateUser(user) {
   return {
     type: AUTHENTICATE_USER,
-    user
+    user,
   };
 }
 
 export function logoutUser() {
   return {
     type: LOG_OUT,
+  };
+}
+
+export function clearAuthErrorState() {
+  return {
+    type: CLEAR_AUTH_ERROR_STATE,
   };
 }

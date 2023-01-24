@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
-import { redirect } from "react-router-dom";
-import { login } from "../actions/auth";
-import { Home } from './Home';
+import { Navigate } from "react-router-dom";
+import { clearAuthErrorState, login } from "../actions/auth";
 
 class Login extends Component {
   constructor(props) {
@@ -12,6 +11,10 @@ class Login extends Component {
       password: "",
     };
   }
+
+  componentWillUnmount() {
+    this.props.dispatch(clearAuthErrorState());
+  };
 
   handleInputChange = (e) => {
     this.setState({
@@ -28,6 +31,10 @@ class Login extends Component {
 
   render() {
     const {error, inProgress, isLoggedIn} = this.props.auth;
+
+    if (isLoggedIn) {
+      return <Navigate to='/' />;
+    }
 
     return (
       <form className="login-form">

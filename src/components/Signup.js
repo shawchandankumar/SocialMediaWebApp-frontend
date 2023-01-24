@@ -1,23 +1,27 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { signup } from "../actions/auth";
+import { Navigate } from "react-router-dom";
+
+import { clearAuthErrorState, signup } from "../actions/auth";
 
 class Signup extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
       name: "",
       email: "",
       password: "",
-      confirm_password: ""
+      confirm_password: "",
     };
   }
 
+  componentWillUnmount() {
+    this.props.dispatch(clearAuthErrorState());
+  }
 
   handleInputChange = (e) => {
     this.setState({
-        [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -29,18 +33,23 @@ class Signup extends Component {
   };
 
   render() {
-    const {error, inProgress, isLoggedIn} = this.props.auth;
+    const { error, inProgress, isLoggedIn } = this.props.auth;
+
+    if (isLoggedIn) {
+      return <Navigate to="/" />;
+    }
+
     return (
       <form className="signup-form">
         <span className="login-signup-header">Sign Up</span>
 
-        {error && <div className='alert error-dailog'>{error}</div>}
+        {error && <div className="alert error-dailog">{error}</div>}
 
         <div className="field">
           <input
             type="text"
             placeholder="Name"
-            name='name'
+            name="name"
             required
             onChange={this.handleInputChange}
             value={this.state.name}
@@ -52,7 +61,7 @@ class Signup extends Component {
             type="email"
             placeholder="Email"
             required
-            name='email'
+            name="email"
             onChange={this.handleInputChange}
             value={this.state.email}
           />
@@ -63,7 +72,7 @@ class Signup extends Component {
             type="password"
             placeholder="Password"
             required
-            name='password'
+            name="password"
             onChange={this.handleInputChange}
             value={this.state.password}
           />
@@ -74,7 +83,7 @@ class Signup extends Component {
             type="password"
             placeholder="Confirm Password"
             required
-            name='confirm_password'
+            name="confirm_password"
             onChange={this.handleInputChange}
             value={this.state.confirm_password}
           />
@@ -85,7 +94,7 @@ class Signup extends Component {
             type="submit"
             onClick={this.handleFormSubmit}
             disabled={inProgress}
-            >
+          >
             Sign Up
           </button>
         </div>
@@ -94,8 +103,8 @@ class Signup extends Component {
   }
 }
 
-const mapStateToProps = ({auth}) => {
-    return {auth};
+const mapStateToProps = ({ auth }) => {
+  return { auth };
 };
 
 export default connect(mapStateToProps)(Signup);
