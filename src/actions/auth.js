@@ -1,6 +1,6 @@
 import { APIUrls } from "../helpers/urls";
 import { getFormData } from "../helpers/utils";
-import { LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILED } from "./actionType";
+import { LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILED, AUTHENTICATE_USER } from "./actionType";
 
 export function startLogin() {
   return {
@@ -68,5 +68,13 @@ export function signup(name, email, password, confirm_password) {
         }
         dispatch(loginFailed(data.message));
       });
+  };
+}
+
+
+export function authenticateUser(user) {
+  return {
+    type: AUTHENTICATE_USER,
+    user
   };
 }

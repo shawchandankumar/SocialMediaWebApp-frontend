@@ -13,15 +13,9 @@ class Login extends Component {
     };
   }
 
-  handleEmailChange = (e) => {
+  handleInputChange = (e) => {
     this.setState({
-      email: e.target.value,
-    });
-  };
-
-  handlePasswordChange = (e) => {
-    this.setState({
-      password: e.target.value,
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -35,10 +29,6 @@ class Login extends Component {
   render() {
     const {error, inProgress, isLoggedIn} = this.props.auth;
 
-    // if (isLoggedIn) {
-    //   redirect {<Home />};
-    // }
-
     return (
       <form className="login-form">
         <span className="login-signup-header">Log In</span>
@@ -48,7 +38,8 @@ class Login extends Component {
             type="email"
             placeholder="Email"
             required
-            onChange={this.handleEmailChange}
+            name="email"
+            onChange={this.handleInputChange}
             value={this.state.email}
           />
         </div>
@@ -58,7 +49,8 @@ class Login extends Component {
             type="password"
             placeholder="Password"
             required
-            onChange={this.handlePasswordChange}
+            name='password'
+            onChange={this.handleInputChange}
             value={this.state.password}
           />
         </div>
