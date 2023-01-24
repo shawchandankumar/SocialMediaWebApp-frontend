@@ -40,10 +40,14 @@ class Navbar extends Component {
                 </div>
 
                 <div className="right-nav">
-                    {isLoggedIn && <div className='user'>
-                        <img src='' alt='user-dp' id='user-dp' />
-                        <span>{user.name}</span>
-                    </div>}
+                    {isLoggedIn &&
+                        <Link to={"/setting"}>
+                            <div className='user'>
+                                <img src='' alt='user-dp' id='user-dp' />
+                                <span>{user.name}</span>
+                            </div>
+                        </Link> 
+                    }
 
                     <div className="nav-links">
                         <ul>

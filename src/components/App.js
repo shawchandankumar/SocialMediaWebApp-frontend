@@ -1,12 +1,19 @@
 import React from "react";
 import { connect } from "react-redux";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Outlet, Navigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import jwt_decode from 'jwt-decode';
 
 import fetchPosts from "../actions/posts";
 import { Home, Navbar, Page404, Login, Signup } from "./";
 import { authenticateUser } from "../actions/auth";
+
+const Setting = () => <div>setting</div>;
+
+const PrivateRoute = ({isLoggedIn}) => {
+  return isLoggedIn ? <Outlet /> : <Navigate to="/login"/>;
+}
+
 
 class App extends React.Component {
 
@@ -22,7 +29,7 @@ class App extends React.Component {
   }
 
   render() {
-    const {posts} = this.props;
+    const {posts, auth} = this.props;
 
     return (
       <Router>
@@ -33,6 +40,9 @@ class App extends React.Component {
             <Route path="/" element={<Home posts={posts} />} />
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<Signup />} />
+            <Route element={<PrivateRoute isLoggedIn={auth.isLoggedIn} />} >
+              <Route path="setting" element={<Setting />} />
+            </Route>
             <Route path="*" element={<Page404 />} />
           </Routes>
 
@@ -45,6 +55,7 @@ class App extends React.Component {
 function mapStateToProps(state) {
   return {
     posts: state.posts,
+    auth: state.auth
   };
 }
 
