@@ -8,3 +8,4 @@ export const LOGIN_FAILED = 'LOGIN_FAILED';
 
 
 export const AUTHENTICATE_USER = 'AUTHENTICATE_USER';
+export const LOG_OUT = 'LOG_OUT';

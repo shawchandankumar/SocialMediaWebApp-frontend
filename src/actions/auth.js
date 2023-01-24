@@ -1,6 +1,6 @@
 import { APIUrls } from "../helpers/urls";
 import { getFormData } from "../helpers/utils";
-import { LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILED, AUTHENTICATE_USER } from "./actionType";
+import { LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILED, AUTHENTICATE_USER, LOG_OUT } from "./actionType";
 
 export function startLogin() {
   return {
@@ -76,5 +76,11 @@ export function authenticateUser(user) {
   return {
     type: AUTHENTICATE_USER,
     user
+  };
+}
+
+export function logoutUser() {
+  return {
+    type: LOG_OUT,
   };
 }

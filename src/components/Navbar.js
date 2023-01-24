@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
+import { logoutUser } from '../actions/auth';
 
 class Navbar extends Component {
 
+    handleLogoutUser = () => {
+        localStorage.removeItem('token');
+        this.props.dispatch(logoutUser());
+    }
+
     render() {
+        const {isLoggedIn, user} = this.props.auth;
         return (
             <nav className="nav">
                 <div className='left-nav'>
@@ -32,22 +40,25 @@ class Navbar extends Component {
                 </div>
 
                 <div className="right-nav">
-                    <div className='user'>
+                    {isLoggedIn && <div className='user'>
                         <img src='' alt='user-dp' id='user-dp' />
-                        <span>John Doe</span>
-                    </div>
+                        <span>{user.name}</span>
+                    </div>}
 
                     <div className="nav-links">
                         <ul>
-                            <li>
+                            {!isLoggedIn && <li>
                                 <Link to={`/login`} >Log in</Link>
-                            </li>
-                            <li>
-                                <Link to={`/`} >Log out</Link>
-                            </li>
-                            <li>
+                            </li>}
+
+                            {isLoggedIn && <li>
+                                 <button onClick={this.handleLogoutUser}>Log out</button>
+                            </li>}
+
+                            {!isLoggedIn && <li>
                                 <Link to={`/signup`} >Sign up</Link>
-                            </li>
+                            </li>}
+                            
                         </ul>
                     </div>
                 </div>
@@ -57,5 +68,9 @@ class Navbar extends Component {
 }
 
 
-export default Navbar;
+const mapStateToProps = ({auth}) => {
+    return {auth};
+}
+
+export default connect(mapStateToProps)(Navbar);
 
