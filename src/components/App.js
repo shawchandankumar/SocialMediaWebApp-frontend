@@ -1,17 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
-import { BrowserRouter as Router, Route, Routes, Outlet, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import PropTypes from "prop-types";
 import jwt_decode from 'jwt-decode';
 
 import fetchPosts from "../actions/posts";
-import { Home, Navbar, Page404, Login, Signup, Settings } from "./";
+import { Home, Navbar, Page404, Login, Signup, Settings, PrivateRoute } from "./";
 import { authenticateUser } from "../actions/auth";
 
-
-const PrivateRoute = ({isLoggedIn}) => {
-  return isLoggedIn ? <Outlet /> : <Navigate to="/login"/>;
-}
 
 
 class App extends React.Component {
