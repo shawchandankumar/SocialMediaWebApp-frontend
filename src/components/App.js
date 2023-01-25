@@ -5,10 +5,9 @@ import PropTypes from "prop-types";
 import jwt_decode from 'jwt-decode';
 
 import fetchPosts from "../actions/posts";
-import { Home, Navbar, Page404, Login, Signup } from "./";
+import { Home, Navbar, Page404, Login, Signup, Settings } from "./";
 import { authenticateUser } from "../actions/auth";
 
-const Setting = () => <div>setting</div>;
 
 const PrivateRoute = ({isLoggedIn}) => {
   return isLoggedIn ? <Outlet /> : <Navigate to="/login"/>;
@@ -41,7 +40,7 @@ class App extends React.Component {
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<Signup />} />
             <Route element={<PrivateRoute isLoggedIn={auth.isLoggedIn} />} >
-              <Route path="setting" element={<Setting />} />
+              <Route path="setting" element={<Settings />} />
             </Route>
             <Route path="*" element={<Page404 />} />
           </Routes>
