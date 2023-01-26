@@ -2,29 +2,41 @@ import React from "react";
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import PropTypes from "prop-types";
-import jwt_decode from 'jwt-decode';
+import jwt_decode from "jwt-decode";
 
 import fetchPosts from "../actions/posts";
-import { Home, Navbar, Page404, Login, Signup, Settings, PrivateRoute } from "./";
+import {
+  Home,
+  Navbar,
+  Page404,
+  Signup,
+  Settings,
+  PrivateRoute,
+  ComponentWithRouterProp,
+} from "./";
 import { authenticateUser } from "../actions/auth";
 
 
 
 class App extends React.Component {
-
+  
   componentDidMount() {
     this.props.dispatch(fetchPosts());
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (token) {
-      const { name, email, _id, } = jwt_decode(token);
-      this.props.dispatch(authenticateUser({
-        name, email, _id
-      }));
+      const { name, email, _id } = jwt_decode(token);
+      this.props.dispatch(
+        authenticateUser({
+          name,
+          email,
+          _id,
+        })
+      );
     }
   }
 
   render() {
-    const {posts, auth} = this.props;
+    const { posts, auth } = this.props;
 
     return (
       <Router>
@@ -33,14 +45,18 @@ class App extends React.Component {
 
           <Routes>
             <Route path="/" element={<Home posts={posts} />} />
-            <Route path="login" element={<Login />} />
+            <Route
+              path="login"
+              element={
+                <ComponentWithRouterProp />
+              }
+            />
             <Route path="signup" element={<Signup />} />
-            <Route element={<PrivateRoute isLoggedIn={auth.isLoggedIn} />} >
+            <Route element={<PrivateRoute isLoggedIn={auth.isLoggedIn} />}>
               <Route path="setting" element={<Settings />} />
             </Route>
             <Route path="*" element={<Page404 />} />
           </Routes>
-
         </div>
       </Router>
     );
@@ -50,7 +66,7 @@ class App extends React.Component {
 function mapStateToProps(state) {
   return {
     posts: state.posts,
-    auth: state.auth
+    auth: state.auth,
   };
 }
 

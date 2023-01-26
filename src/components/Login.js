@@ -4,6 +4,7 @@ import { Navigate } from "react-router-dom";
 import { clearAuthErrorState, login } from "../actions/auth";
 
 class Login extends Component {
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -31,9 +32,11 @@ class Login extends Component {
 
   render() {
     const {error, inProgress, isLoggedIn} = this.props.auth;
+    const {state} = this.props.location;
+    const {from} = state || {from: {location: {pathname: '/'}}}
 
     if (isLoggedIn) {
-      return <Navigate to='/' />;
+      return <Navigate to={from.location.pathname} />;
     }
 
     return (
