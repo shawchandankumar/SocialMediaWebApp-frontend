@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 class PostsList extends Component {
 
@@ -9,18 +10,19 @@ class PostsList extends Component {
     return (
       <div className="posts_list">
         {posts.map((post) => (
-        <div className="post-wrapper" key={post.imdbID}>
+          <div className="post-wrapper" key={post._id}>
             <div className="post-header">
-
               <div className="post-avatar">
-                <img src={post.Poster} />
+                <Link to={`/users/${post.user._id}`} >
+                  <img src="" alt="user-avatar" />
+                </Link>
                 <div>
-                  <span className="post-author">{post.imdbID}</span>
+                  <span className="post-author">{post.user.name}</span>
                   <span className="post-time">a minute ago</span>
                 </div>
               </div>
 
-              <div className="post-content">{post.Title}</div>
+              <div className="post-content">{post.content}</div>
 
               <div className="post-actions">
                 <div className="post-like">
@@ -38,15 +40,18 @@ class PostsList extends Component {
               <div className="post-comment-list">
                 <div className="post-comment-item">
                   <div className="post-comment-header">
-                    <span className="post-comment-author">{post.year}</span>
+                    <span className="post-comment-author">
+                      {posts[0].comments[0].user.name}
+                    </span>
                     <span className="post-comment-time">a minute ago</span>
                     <span className="post-comment-likes">10</span>
                   </div>
 
-                  <div className="post-comment-content">Random comment</div>
+                  <div className="post-comment-content">
+                    {posts[0].comments[0].content}
+                  </div>
                 </div>
               </div>
-
             </div>
           </div>
         ))}
@@ -56,7 +61,7 @@ class PostsList extends Component {
 }
 
 PostsList.propTypes = {
-  posts: PropTypes.array.isRequired
-}
+  posts: PropTypes.array.isRequired,
+};
 
 export default PostsList;

@@ -1,12 +1,13 @@
 import { UPDATE_POSTS } from "./actionType";
+import {APIUrls} from '../helpers/urls';
 
 export default function fetchPosts() {
     return (dispatch) => {
-        const url = `http://www.omdbapi.com/?apikey=3ca5df7&s=superman`;
+        const url = APIUrls.getAllPosts();
 
         fetch(url)
             .then(response => response.json())
-            .then(data => dispatch(updatePosts(data.Search)));
+            .then(data => dispatch(updatePosts(data.data.posts)));
     }
 }
 

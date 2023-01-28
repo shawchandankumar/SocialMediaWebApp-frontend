@@ -9,6 +9,7 @@ import Settings from "./Settings";
 import PrivateRoute from "./PrivateRoute";
 import withRouter from "./withRouter";
 import ComponentWithRouterProp from "./ComponentWithRouterProp";
+import Profile from './Profile';
 
 export {
   PostsList,
@@ -22,4 +23,5 @@ export {
   PrivateRoute,
   withRouter,
   ComponentWithRouterProp,
+  Profile,
 };

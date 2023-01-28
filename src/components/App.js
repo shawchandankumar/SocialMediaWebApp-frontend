@@ -13,6 +13,7 @@ import {
   Settings,
   PrivateRoute,
   ComponentWithRouterProp,
+  Profile
 } from "./";
 import { authenticateUser } from "../actions/auth";
 import { getTokenFromLocalStorage } from "../helpers/utils";
@@ -55,6 +56,9 @@ class App extends React.Component {
             <Route path="signup" element={<Signup />} />
             <Route element={<PrivateRoute isLoggedIn={auth.isLoggedIn} />}>
               <Route path="setting" element={<Settings />} />
+            </Route>
+            <Route element={<PrivateRoute isLoggedIn={auth.isLoggedIn} />}>
+              <Route path="users/:userId" element={<Profile />} />
             </Route>
             <Route path="*" element={<Page404 />} />
           </Routes>

@@ -10,7 +10,7 @@ class Settings extends Component {
       name: props.auth.user.name,
       password: "",
       confirm_password: "",
-      editMode: true,
+      editMode: false,
     };
   }
 
