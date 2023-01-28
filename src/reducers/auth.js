@@ -5,6 +5,8 @@ import {
   AUTHENTICATE_USER,
   LOG_OUT,
   CLEAR_AUTH_ERROR_STATE,
+  EDIT_PROFILE_FAILED,
+  EDIT_PROFILE_SUCCESSFUL,
 } from "../actions/actionType";
 
 const initialAuthState = {
@@ -56,6 +58,19 @@ export default function auth(state = initialAuthState, action) {
         ...state,
         user: {},
         isLoggedIn: false,
+      };
+
+    case EDIT_PROFILE_SUCCESSFUL:
+      return {
+        ...state,
+        user: action.user,
+        error: false,
+      };
+
+    case EDIT_PROFILE_FAILED:
+      return {
+        ...state,
+        error: action.error,
       };
 
     default:

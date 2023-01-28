@@ -15,6 +15,7 @@ import {
   ComponentWithRouterProp,
 } from "./";
 import { authenticateUser } from "../actions/auth";
+import { getTokenFromLocalStorage } from "../helpers/utils";
 
 
 
@@ -22,7 +23,7 @@ class App extends React.Component {
   
   componentDidMount() {
     this.props.dispatch(fetchPosts());
-    const token = localStorage.getItem("token");
+    const token = getTokenFromLocalStorage();
     if (token) {
       const { name, email, _id } = jwt_decode(token);
       this.props.dispatch(

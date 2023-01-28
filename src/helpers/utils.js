@@ -10,3 +10,8 @@ export function getFormData (params) {
 
     return formData.join('&');
 }
+
+
+export function getTokenFromLocalStorage () {
+    return localStorage.getItem('token');
+}
