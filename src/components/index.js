@@ -10,6 +10,7 @@ import PrivateRoute from "./PrivateRoute";
 import withRouter from "./withRouter";
 import ComponentWithRouterProp from "./ComponentWithRouterProp";
 import Profile from './Profile';
+import FriendsList from './FriendsList';
 
 export {
   PostsList,
@@ -24,4 +25,5 @@ export {
   withRouter,
   ComponentWithRouterProp,
   Profile,
+  FriendsList
 };

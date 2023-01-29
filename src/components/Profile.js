@@ -1,19 +1,19 @@
-import React, { Component } from 'react';
-import { useParams } from 'react-router-dom';
-import {connect} from 'react-redux';
+import React, { Component } from "react";
+import { useParams } from "react-router-dom";
+import { connect } from "react-redux";
 
-import {fetchUser} from '../actions/profile';
+import { fetchUser } from "../actions/profile";
 
 
 class Profile extends Component {
 
-  componentDidMount() { 
-    const {userId} = this.props;
+  componentDidMount() {
+    const { userId } = this.props;
     this.props.dispatch(fetchUser(userId));
   }
 
   render() {
-    const {user, inProgress} = this.props.profile;
+    const { user, inProgress } = this.props.profile;
 
     if (inProgress) {
       return <h1>Loading!!</h1>;
@@ -39,21 +39,19 @@ class Profile extends Component {
           <div>Add Friend</div>
         </div>
       </div>
-    )
+    );
   }
 }
 
-function ProfileWrapper (props) {
-  const {userId} = useParams();
-  return (
-    <Profile {...props} userId={userId} />
-  );
+function ProfileWrapper(props) {
+  const { userId } = useParams();
+  return <Profile {...props} userId={userId} />;
 }
 
-const mapStateToProps = ({profile}) => {
+const mapStateToProps = ({ profile }) => {
   return {
     profile,
   };
-}
+};
 
 export default connect(mapStateToProps)(ProfileWrapper);

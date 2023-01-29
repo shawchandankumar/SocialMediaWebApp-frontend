@@ -6,6 +6,7 @@ class PostsList extends Component {
 
   render() {
     const { posts } = this.props;
+    // console.log(posts)
 
     return (
       <div className="posts_list">
@@ -41,14 +42,14 @@ class PostsList extends Component {
                 <div className="post-comment-item">
                   <div className="post-comment-header">
                     <span className="post-comment-author">
-                      {posts[0].comments[0].user.name}
+                      {posts[2].comments[0].user.name}
                     </span>
                     <span className="post-comment-time">a minute ago</span>
                     <span className="post-comment-likes">10</span>
                   </div>
 
                   <div className="post-comment-content">
-                    {posts[0].comments[0].content}
+                    {posts[2].comments[0].content}
                   </div>
                 </div>
               </div>

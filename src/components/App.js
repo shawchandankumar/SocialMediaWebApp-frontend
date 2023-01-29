@@ -13,32 +13,38 @@ import {
   Settings,
   PrivateRoute,
   ComponentWithRouterProp,
-  Profile
+  Profile,
 } from "./";
 import { authenticateUser } from "../actions/auth";
 import { getTokenFromLocalStorage } from "../helpers/utils";
-
+import { fetchUserFriends } from "../actions/friends";
 
 
 class App extends React.Component {
-  
+
   componentDidMount() {
-    this.props.dispatch(fetchPosts());
+    const { dispatch } = this.props;
+
+    dispatch(fetchPosts());
     const token = getTokenFromLocalStorage();
+
     if (token) {
       const { name, email, _id } = jwt_decode(token);
-      this.props.dispatch(
+
+      dispatch(
         authenticateUser({
           name,
           email,
           _id,
         })
       );
+
+      dispatch(fetchUserFriends());
     }
   }
 
   render() {
-    const { posts, auth } = this.props;
+    const { posts, auth, friends } = this.props;
 
     return (
       <Router>
@@ -46,20 +52,25 @@ class App extends React.Component {
           <Navbar />
 
           <Routes>
-            <Route path="/" element={<Home posts={posts} />} />
             <Route
-              path="login"
+              path="/"
               element={
-                <ComponentWithRouterProp />
+                <Home posts={posts} friends={friends} isLoggedIn={auth.isLoggedIn} />
               }
             />
+
+            <Route path="login" element={<ComponentWithRouterProp />} />
+
             <Route path="signup" element={<Signup />} />
+
             <Route element={<PrivateRoute isLoggedIn={auth.isLoggedIn} />}>
               <Route path="setting" element={<Settings />} />
             </Route>
+
             <Route element={<PrivateRoute isLoggedIn={auth.isLoggedIn} />}>
               <Route path="users/:userId" element={<Profile />} />
             </Route>
+
             <Route path="*" element={<Page404 />} />
           </Routes>
         </div>
@@ -72,6 +83,7 @@ function mapStateToProps(state) {
   return {
     posts: state.posts,
     auth: state.auth,
+    friends: state.friends,
   };
 }
 
