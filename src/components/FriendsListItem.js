@@ -7,7 +7,7 @@ class FriendsListItem extends Component {
     const {friend} = this.props;
     return (
       <div>
-        <Link to={`/user/${friend._id}`} >
+        <Link to={`/users/${friend._id}`} >
             <div className='friends-img'>
                 <img src='' alt='friend-avatar' />
             </div>

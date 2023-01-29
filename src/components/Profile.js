@@ -4,13 +4,17 @@ import { connect } from "react-redux";
 
 import { fetchUser } from "../actions/profile";
 
-
 class Profile extends Component {
-
   componentDidMount() {
     const { userId } = this.props;
     this.props.dispatch(fetchUser(userId));
   }
+
+  checkIfUserIsAFriend = (user) => {
+    const { friends } = this.props;
+    let index = friends.map((friend) => friend.to_user._id).indexOf(user._id);
+    return index !== -1;
+  };
 
   render() {
     const { user, inProgress } = this.props.profile;
@@ -18,6 +22,8 @@ class Profile extends Component {
     if (inProgress) {
       return <h1>Loading!!</h1>;
     }
+
+    const isUserAFriend = this.checkIfUserIsAFriend(user);
 
     return (
       <div className="settings">
@@ -36,7 +42,11 @@ class Profile extends Component {
         </div>
 
         <div className="btn-grp">
-          <div>Add Friend</div>
+          {!isUserAFriend ? (
+            <button>Add Friend</button>
+          ) : (
+            <button>Remove Friend</button>
+          )}
         </div>
       </div>
     );
@@ -48,9 +58,10 @@ function ProfileWrapper(props) {
   return <Profile {...props} userId={userId} />;
 }
 
-const mapStateToProps = ({ profile }) => {
+const mapStateToProps = ({ profile, friends }) => {
   return {
     profile,
+    friends,
   };
 };
 

@@ -42,14 +42,14 @@ class PostsList extends Component {
                 <div className="post-comment-item">
                   <div className="post-comment-header">
                     <span className="post-comment-author">
-                      {posts[2].comments[0].user.name}
+                      {posts[1].comments[0].user.name}
                     </span>
                     <span className="post-comment-time">a minute ago</span>
                     <span className="post-comment-likes">10</span>
                   </div>
 
                   <div className="post-comment-content">
-                    {posts[2].comments[0].content}
+                    {posts[1].comments[0].content}
                   </div>
                 </div>
               </div>

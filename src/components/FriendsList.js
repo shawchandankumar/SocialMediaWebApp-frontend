@@ -4,7 +4,7 @@ import FriendsListItem from './FriendsListItem';
 class FriendsList extends Component {
   render() {
     const {friends} = this.props;
-
+    
     return (
       <div className='friends-list'>
         <div className='header'>Friends</div>
