@@ -12,7 +12,7 @@ class FriendsList extends Component {
         {friends && friends.length === 0 && <div>No Friends found!</div>}
 
         {friends && friends.map(friend => 
-            <FriendsListItem friend={friend.to_user} key={friend._id} />
+            <FriendsListItem friend={friend} key={friend._id} />
         )}
       </div>
     );

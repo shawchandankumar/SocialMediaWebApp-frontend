@@ -5,6 +5,7 @@ class FriendsListItem extends Component {
     
   render() {
     const {friend} = this.props;
+    
     return (
       <div>
         <Link to={`/users/${friend._id}`} >

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import {CreatePost} from "./";
 
 class PostsList extends Component {
 
@@ -10,6 +11,9 @@ class PostsList extends Component {
 
     return (
       <div className="posts_list">
+        
+        <CreatePost />
+
         {posts.map((post) => (
           <div className="post-wrapper" key={post._id}>
             <div className="post-header">
@@ -42,14 +46,14 @@ class PostsList extends Component {
                 <div className="post-comment-item">
                   <div className="post-comment-header">
                     <span className="post-comment-author">
-                      {posts[1].comments[0].user.name}
+                      {posts[0].comments[0].user.name}
                     </span>
                     <span className="post-comment-time">a minute ago</span>
                     <span className="post-comment-likes">10</span>
                   </div>
 
                   <div className="post-comment-content">
-                    {posts[1].comments[0].content}
+                    {posts[0].comments[0].content}
                   </div>
                 </div>
               </div>

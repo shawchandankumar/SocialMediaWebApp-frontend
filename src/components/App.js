@@ -45,6 +45,7 @@ class App extends React.Component {
 
   render() {
     const { posts, auth, friends } = this.props;
+    console.log(friends);
 
     return (
       <Router>
