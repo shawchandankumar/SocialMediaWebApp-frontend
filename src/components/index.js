@@ -12,6 +12,8 @@ import ComponentWithRouterProp from "./ComponentWithRouterProp";
 import Profile from './Profile';
 import FriendsList from './FriendsList';
 import CreatePost from './CreatePost';
+import Post from './Post';
+import Comment from './Comment';
 
 export {
   PostsList,
@@ -28,4 +30,6 @@ export {
   Profile,
   FriendsList,
   CreatePost,
+  Post,
+  Comment
 };
