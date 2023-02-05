@@ -3,17 +3,15 @@ import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { fetchUser } from "../actions/profile";
-import { getTokenFromLocalStorage } from '../helpers/utils';
+import { getTokenFromLocalStorage } from "../helpers/utils";
 import { APIUrls } from "../helpers/urls";
 import { addFriend, removeFriend } from "../actions/friends";
 
-
 class Profile extends Component {
-
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
-      message: null
+      message: null,
     };
   }
 
@@ -22,11 +20,17 @@ class Profile extends Component {
     this.props.dispatch(fetchUser(userId));
   }
 
+  componentDidUpdate(prevProps) {
+    const { userId } = this.props;
+    if (userId && prevProps.userId && prevProps.userId !== userId) {
+      this.props.dispatch(fetchUser(userId));
+    }
+  }
+
   checkIfUserIsAFriend = (userId) => {
     const { friends } = this.props;
-    console.log(friends)
     let index = friends.map((friend) => friend._id).indexOf(userId);
-    return (index !== -1);
+    return index !== -1;
   };
 
   friendshipHelper = async (url) => {
@@ -40,28 +44,31 @@ class Profile extends Component {
 
     const response = await fetch(url, option);
     const data = await response.json();
-    
+
     return data;
-  }
+  };
 
   handleAddFriendClick = async () => {
-    const {userId: friendId, profile: {user}} = this.props;
+    const {
+      userId: friendId,
+      profile: { user },
+    } = this.props;
     const data = await this.friendshipHelper(APIUrls.addFriend(friendId));
-    
+
     if (data.success) {
       this.props.dispatch(addFriend(user));
       this.setState({
-        message: "Friendship Established"
+        message: "Friendship Established",
       });
     } else {
       this.setState({
-        message: data.message
+        message: data.message,
       });
     }
-  }
+  };
 
   handleRemoveFriendClick = async () => {
-    const {userId: friendId} = this.props;
+    const { userId: friendId } = this.props;
     const data = await this.friendshipHelper(APIUrls.removeFriend(friendId));
 
     if (data.success) {
@@ -69,13 +76,13 @@ class Profile extends Component {
     }
 
     this.setState({
-      message: data.message
+      message: data.message,
     });
-  }
+  };
 
   render() {
     const { user, inProgress } = this.props.profile;
-    const {message} = this.state;
+    const { message } = this.state;
 
     if (inProgress) {
       return <h1>Loading!!</h1>;
@@ -99,11 +106,11 @@ class Profile extends Component {
           <div className="field-value">{user.name}</div>
         </div>
 
-          {!isUserAFriend ? (
-            <button onClick={this.handleAddFriendClick}>Add Friend</button>
-          ) : (
-            <button onClick={this.handleRemoveFriendClick}>Remove Friend</button>
-          )}
+        {!isUserAFriend ? (
+          <button onClick={this.handleAddFriendClick}>Add Friend</button>
+        ) : (
+          <button onClick={this.handleRemoveFriendClick}>Remove Friend</button>
+        )}
 
         {message && <div>{message}</div>}
       </div>

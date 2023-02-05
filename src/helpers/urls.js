@@ -14,4 +14,5 @@ export const APIUrls = {
   `${API_ROOT}/friendship/remove_friendship?user_id=${friendId}`,
   createPost: () => `${API_ROOT}/posts/create`,
   createComment: () => `${API_ROOT}/comments`,
+  searchUsers: (searchText) =>  `${API_ROOT}/users/search?text=${searchText}`,
 };
